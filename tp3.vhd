@@ -34,7 +34,9 @@ begin
   -- REGISTRADOR DE DESLOCAMENTO QUE RECEBE O FLUXO DE ENTRADA
 
   -- 4 PORT MAPS PARA OS compara_dado  
-
+  comp_dado_A : entity work.comp
+  port map (
+    
   found   <=  . . . 
 
   program(0) <= . . .
@@ -57,6 +59,7 @@ begin
           when "010"  => PE <= progB;
           when "011"  => PE <= progC;
           when "100"  => PE <= progD;
+          when "101"  => PE <= buscando;
           when others => PE <= EA;
         end case;
       -- BUSCANDO -------------------
