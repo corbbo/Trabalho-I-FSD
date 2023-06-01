@@ -33,7 +33,7 @@ begin
 
   -- REGISTRADOR DE DESLOCAMENTO QUE RECEBE O FLUXO DE ENTRADA
 
-  -- 4 PORT MAPS PARA OS ompara_dado  
+  -- 4 PORT MAPS PARA OS compara_dado  
 
   found   <=  . . . 
 
@@ -46,7 +46,33 @@ begin
 
   --  registrador para o alarme interno
 
-  -- MAQUINA DE ESTADOS (FSM)
+  -- DECODER DE ESTADOS --------------
+  decoder_states: process(EA, prog)
+  begin
+    case EA is
+      -- IDLE ------------------------
+      when idle =>
+        case prog is
+          when "001"  => PE <= progA;
+          when "010"  => PE <= progB;
+          when "011"  => PE <= progC;
+          when "100"  => PE <= progD;
+          when others => PE <= EA;
+        end case;
+      -- BUSCANDO -------------------
+      when buscando =>
+      -- PROGS ----------------------
+      when progA =>
+      when progB =>
+      when progC =>
+      when progD =>
+      -- ZERANDO --------------------
+      when zerando =>
+      -- BLOQUEIO -------------------
+      when bloqueio =>
+    end case;
+  end process decoder_states;
+        
 
   -- SAIDAS
   alarme <= . . . 
