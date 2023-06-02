@@ -29,20 +29,58 @@ end entity;
 architecture tp3 of tp3 is
   type state is (idle, buscando, progA, progB, progC, progD, zerando, bloqueio);
   signal EA, PE: state;
+  signal habilita : std_logic := '0';
+  signal found : std_logic := '0';
+  signal match : std_logic_vector(3 downto 0) := "0000";
+  signal salvando : std_logic_vector(3 downto 0) := "0000";
 begin
 
   -- REGISTRADOR DE DESLOCAMENTO QUE RECEBE O FLUXO DE ENTRADA
 
-  -- 4 PORT MAPS PARA OS compara_dado  
+  -- 4 PORT MAPS PARA OS compara_dado ------------------------ 
   comp_dado_A : entity work.comp
   port map (
+    clock       =>    clock,
+    reset       =>    reset,
+    prog        =>    prog,
+    habilita    =>    habilita,
+    dado        =>    din,
+    pattern     =>    padrao,
+    match       =>    match(0)
+  );
+  comp_dado_B : entity work.comp
+  port map (
+    clock       =>    clock,
+    reset       =>    reset,
+    prog        =>    prog,
+    habilita    =>    habilita,
+    dado        =>    din,
+    pattern     =>    padrao,
+    match       =>    match(1)
+  );
+  comp_dado_C : entity work.comp
+  port map (
+    clock       =>    clock,
+    reset       =>    reset,
+    prog        =>    prog,
+    habilita    =>    habilita,
+    dado        =>    din,
+    pattern     =>    padrao,
+    match       =>    match(2)
+  );
+  comp_dado_D : entity work.comp
+  port map (
+    clock       =>    clock,
+    reset       =>    reset,
+    prog        =>    prog,
+    habilita    =>    habilita,
+    dado        =>    din,
+    pattern     =>    padrao,
+    match       =>    match(2)
+  );
     
-  found   <=  . . . 
-
-  program(0) <= . . .
-  program(1) <= . . .
-  program(2) <= . . .
-  program(3) <= . . .
+  found   <=  '0' when match = "0000" else 
+              '1';
   
   --  registradores para ativar as comparações
 
