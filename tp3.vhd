@@ -32,7 +32,7 @@ architecture tp3 of tp3 is
   signal habilita : std_logic := '0';
   signal found : std_logic := '0';
   signal match : std_logic_vector(3 downto 0) := "0000";
-  signal salvando : std_logic_vector(3 downto 0) := "0000";
+  signal program : std_logic_vector(3 downto 0) := "0000";
 begin
 
   -- REGISTRADOR DE DESLOCAMENTO QUE RECEBE O FLUXO DE ENTRADA
@@ -42,7 +42,7 @@ begin
   port map (
     clock       =>    clock,
     reset       =>    reset,
-    prog        =>    prog,
+    prog        =>    program(0),
     habilita    =>    habilita,
     dado        =>    din,
     pattern     =>    padrao,
@@ -52,7 +52,7 @@ begin
   port map (
     clock       =>    clock,
     reset       =>    reset,
-    prog        =>    prog,
+    prog        =>    program(1),
     habilita    =>    habilita,
     dado        =>    din,
     pattern     =>    padrao,
@@ -62,7 +62,7 @@ begin
   port map (
     clock       =>    clock,
     reset       =>    reset,
-    prog        =>    prog,
+    prog        =>    program(2),
     habilita    =>    habilita,
     dado        =>    din,
     pattern     =>    padrao,
@@ -72,11 +72,11 @@ begin
   port map (
     clock       =>    clock,
     reset       =>    reset,
-    prog        =>    prog,
+    prog        =>    program(3),
     habilita    =>    habilita,
     dado        =>    din,
     pattern     =>    padrao,
-    match       =>    match(2)
+    match       =>    match(3)
   );
     
   found   <=  '0' when match = "0000" else 
@@ -85,6 +85,36 @@ begin
   --  registradores para ativar as comparações
 
   --  registrador para o alarme interno
+    
+  -- FLIP FLOP -----------------------
+  state_machine: process(clock)
+  begin
+    if clock'event and clock = '1' then
+      case EA is
+        when progA => 
+          program(0) <= '1',
+          program(1) <= '0',
+          program(2) <= '0',
+          program(3) <= '0',
+        when progB => 
+          program(0) <= '0',
+          program(1) <= '1',
+          program(2) <= '0',
+          program(3) <= '0',
+        when progC =>
+          program(0) <= '0',
+          program(1) <= '0',
+          program(2) <= '1',
+          program(3) <= '0',
+        when progD =>
+          program(0) <= '0',
+          program(1) <= '0',
+          program(2) <= '0',
+          program(3) <= '1',
+        when others => program <= "0000"
+       end case;
+    end if;
+  end process state_machine;
 
   -- DECODER DE ESTADOS --------------
   decoder_states: process(EA, prog)
@@ -93,20 +123,21 @@ begin
       -- IDLE ------------------------
       when idle =>
         case prog is
-          when "001"  => PE <= progA;
-          when "010"  => PE <= progB;
-          when "011"  => PE <= progC;
-          when "100"  => PE <= progD;
-          when "101"  => PE <= buscando;
-          when others => PE <= EA;
+          when "001"  => PE <= progA,
+          when "010"  => PE <= progB,
+          when "011"  => PE <= progC,
+          when "100"  => PE <= progD,
+          when "101"  => PE <= buscando,
+          when others => PE <= EA
         end case;
       -- BUSCANDO -------------------
       when buscando =>
+          habilita <= '1',
       -- PROGS ----------------------
-      when progA =>
-      when progB =>
-      when progC =>
-      when progD =>
+      when progA => PE <= idle,
+      when progB => PE <= idle,
+      when progC => PE <= idle,
+      when progD => PE <= idle,
       -- ZERANDO --------------------
       when zerando =>
       -- BLOQUEIO -------------------
