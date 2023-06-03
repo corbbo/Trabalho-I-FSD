@@ -46,7 +46,7 @@ begin
   end process registrador;
       
 
-  -- 4 PORT MAPS PARA OS compara_dado ------------------------ 
+  -- 4 PORT MAPS PARA OS compara_dado -------------------------
   comp_dado_A : entity work.compara_dado
   port map (
     clock       =>    clock,
@@ -87,42 +87,26 @@ begin
     pattern     =>    padrao,
     match       =>    match(3)
   );
-    
+  -- DISPARO DO found -------------------------------------------------------
   found   <=  '0' when match = "0000" else 
               '1';
     
-  -- FLIP FLOPS -----------------------
+  -- FLIP FLOPS --------------------------------------------------------------
   -- registro ------------------
   registro: process(clock)
   begin
     if clock'event and clock = '1' then
       case EA is
-        when progA => 
-          program(0) <= '1';
-          program(1) <= '0';
-          program(2) <= '0';
-          program(3) <= '0';
-        when progB => 
-          program(0) <= '0';
-          program(1) <= '1';
-          program(2) <= '0';
-          program(3) <= '0';
-        when progC =>
-          program(0) <= '0';
-          program(1) <= '0';
-          program(2) <= '1';
-          program(3) <= '0';
-        when progD =>
-          program(0) <= '0';
-          program(1) <= '0';
-          program(2) <= '0';
-          program(3) <= '1';
+        when progA  => program <= "1000";
+        when progB  => program <= "0100";
+        when progC  => program <= "0010";
+        when progD  => program <= "0001";
         when others => program <= "0000";
        end case;
     end if;
   end process registro;
       
-  -- FSM -----------------------
+  -- FSM ---------------------------------------------------------
   fsm : process(clock)
   begin
     if clock'event and clock = '1' then
@@ -130,7 +114,7 @@ begin
     end if;
   end process fsm;
 
-  -- DECODER DE ESTADOS --------------
+  -- DECODER DE ESTADOS -----------------------------------------
   decoder_states: process(EA, prog)
   begin
     case EA is
@@ -190,7 +174,7 @@ begin
     end case;
   end process decoder_states;
 
-  -- SAIDAS
+  -- SAIDAS -------------------------------------------------------
   dout <= '0' when EA = bloqueio else din;
   alarme <= '1' when EA = bloqueio else '0';
   numero <= match when EA = bloqueio else "00";
