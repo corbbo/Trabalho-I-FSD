@@ -29,6 +29,10 @@ architecture tb of tb is
     (t =>  15, prog => "011", padrao => x"D4"),
     (t =>  20, prog => "100", padrao => x"65"),    
     (t =>  35, prog => "101", padrao => x"FF"),    -- ATIVA A COMPARAÇÃO (5)
+    (t =>  43, prog => "000", padrao => x"11"),
+    (t =>  45, prog => "000", padrao => x"A1"),
+    (t =>  47, prog => "000", padrao => x"C9"),
+    (t =>  50, prog => "000", padrao => x"D4"),
     (t =>  55, prog => "110", padrao => x"FF"),    -- reinicia a comparação (6)
     (t =>  70, prog => "110", padrao => x"FF"),    -- reinicia a comparação (6)
     (t => 105, prog => "111", padrao => x"FF")     -- reinicializa (7)
@@ -50,6 +54,7 @@ architecture tb of tb is
 
   signal conta_tempo : integer := 0;
   signal padrao : std_logic_vector(7 downto 0);
+  
 begin
 
   reset <= '1', '0' after 2 ns;

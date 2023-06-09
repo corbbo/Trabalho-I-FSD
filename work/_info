@@ -1,10 +1,177 @@
 m255
 K4
 z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11e vcom 2021.3 2021.07, Jul 13 2021
 13
 !s112 1.1
 !i10d 8192
 !i10e 25
 !i10f 100
 cModel Technology
-d/home/thiago.zilberknop/Desktop/FSDtrabalhoI
+Z1 d/home/thiago.zilberknop/Desktop/FSDtrabalhoI
+T_opt
+!s110 1686325766
+V73=S0jKUIIP4]aXMoa>_b3
+04 2 2 work tb tb 1
+=1-000ae431a4f1-64834a06-50ff2-c324
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc=lprn
+tCvgOpt 0
+n@_opt
+OL;O;2021.3;73
+Ecompara_dado
+Z2 w1686322889
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R1
+Z5 8comp.vhd
+Z6 Fcomp.vhd
+l0
+L10 1
+VQ:97kVXa8oaI<<X>a]=`a2
+!s100 za=OGPE;GDg5f>BhDP3T:3
+Z7 OL;C;2021.3;73
+32
+Z8 !s110 1686325764
+!i10b 1
+Z9 !s108 1686325764.000000
+Z10 !s90 -reportprogress|300|-work|work|comp.vhd|
+Z11 !s107 comp.vhd|
+!i113 0
+Z12 o-work work
+Z13 tExplicit 1 CvgOpt 0
+Aal
+R3
+R4
+Z14 DEx4 work 12 compara_dado 0 22 Q:97kVXa8oaI<<X>a]=`a2
+!i122 0
+l27
+L22 29
+V]YhO@azUhC5e93jW@;:3]0
+!s100 6QCi3?cVOKWg<OE`m3Njc3
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 0
+R12
+R13
+Etb
+Z15 w1686323900
+Z16 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z17 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R3
+R4
+!i122 2
+R1
+Z18 8tb.vhd
+Z19 Ftb.vhd
+l0
+L11 1
+V4BFD_YKP6]OHT>2ZY]Dlh2
+!s100 W1g`oD=blkeQ9RDk4=ZDl3
+R7
+32
+Z20 !s110 1686325765
+!i10b 1
+R9
+Z21 !s90 -reportprogress|300|-work|work|tb.vhd|
+Z22 !s107 tb.vhd|
+!i113 0
+R12
+R13
+Atb
+Z23 DEx4 work 3 tp3 0 22 <?@RY=z]cG4BdLiZ=e;mD1
+R16
+R17
+R3
+R4
+DEx4 work 2 tb 0 22 4BFD_YKP6]OHT>2ZY]Dlh2
+!i122 2
+l58
+L17 87
+V3ABznfNIRAK<MDA=FYJZB1
+!s100 :m9<W]Oo>ih[gKO>0dB@G3
+R7
+32
+R20
+!i10b 1
+R9
+R21
+R22
+!i113 0
+R12
+R13
+Etp3
+Z24 w1686325761
+R16
+R17
+R3
+R4
+!i122 1
+R1
+Z25 8tp3.vhd
+Z26 Ftp3.vhd
+l0
+L13 1
+V<?@RY=z]cG4BdLiZ=e;mD1
+!s100 e9LV=5XO<SfaRfB6YHB<F1
+R7
+32
+R8
+!i10b 1
+R9
+Z27 !s90 -reportprogress|300|-work|work|tp3.vhd|
+Z28 !s107 tp3.vhd|
+!i113 0
+R12
+R13
+Atp3
+R14
+R16
+R17
+R3
+R4
+R23
+!i122 1
+l37
+L29 165
+VXld7d6219a98TIimGIH:32
+!s100 6_^AIO>[7_C3zdiS>XGY91
+R7
+32
+R8
+!i10b 1
+R9
+R27
+R28
+!i113 0
+R12
+R13

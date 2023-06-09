@@ -25,11 +25,12 @@ architecture al of compara_dado is
   signal igual  : std_logic := '0';
 
 begin
+
   process(clock)
+  begin
     if clock'event and clock = '1' then
       -- RESET --------------------
       if reset = '1' then
-        match <= '0';
         padrao <= x"00";
       else
         -- REGISTRO ---------------
@@ -37,9 +38,10 @@ begin
           padrao <= pattern;
         end if;
         -- IGUAL ------------------
-        if dado = padrao then
+        if pattern = padrao then
           igual <= '1';
-          end if;
+          else igual <= '0';
+        end if;
       end if;
     end if;
   end process;

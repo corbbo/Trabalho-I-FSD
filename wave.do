@@ -19,13 +19,13 @@ add wave -noupdate /tb/DUT/EA
 add wave -noupdate -divider PADROES
 add wave -noupdate -radix hexadecimal /tb/padrao
 add wave -noupdate /tb/DUT/sel(0)
-add wave -noupdate -radix hexadecimal /tb/DUT/gen(0)/CD/padrao
+#add wave -noupdate -radix hexadecimal /tb/DUT/gen(0)/CD/padrao
 add wave -noupdate /tb/DUT/sel(1)
-add wave -noupdate -radix hexadecimal /tb/DUT/gen(1)/CD/padrao
+#add wave -noupdate -radix hexadecimal /tb/DUT/gen(1)/CD/padrao
 add wave -noupdate /tb/DUT/sel(2)
-add wave -noupdate -radix hexadecimal /tb/DUT/gen(2)/CD/padrao
+#add wave -noupdate -radix hexadecimal /tb/DUT/gen(2)/CD/padrao
 add wave -noupdate /tb/DUT/sel(3)
-add wave -noupdate -radix hexadecimal /tb/DUT/gen(3)/CD/padrao
+#add wave -noupdate -radix hexadecimal /tb/DUT/gen(3)/CD/padrao
 add wave -noupdate -divider {test bench}
 add wave -noupdate -radix unsigned /tb/conta_tempo
 TreeUpdate [SetDefaultTree]

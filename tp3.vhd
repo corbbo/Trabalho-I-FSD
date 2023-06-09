@@ -46,7 +46,7 @@ begin
   end process registrador;
       
 
-  -- 4 PORT MAPS PARA OS compara_dado -------------------------
+  -- 4 PORT MAPS PARA OS compara_dado ------------------------ 
   comp_dado_A : entity work.compara_dado
   port map (
     clock       =>    clock,
@@ -87,26 +87,38 @@ begin
     pattern     =>    padrao,
     match       =>    match(3)
   );
-  -- DISPARO DO found -------------------------------------------------------
-  found   <=  '0' when match = "0000" else 
-              '1';
     
-  -- FLIP FLOPS --------------------------------------------------------------
+  -- FLIP FLOPS -----------------------
   -- registro ------------------
   registro: process(clock)
   begin
     if clock'event and clock = '1' then
       case EA is
-        when progA  => program <= "1000";
-        when progB  => program <= "0100";
-        when progC  => program <= "0010";
-        when progD  => program <= "0001";
+        when progA => 
+          program(0) <= '1';
+          program(1) <= '0';
+          program(2) <= '0';
+          program(3) <= '0';
+        when progB => 
+          program(0) <= '0';
+          program(1) <= '1';
+          program(2) <= '0';
+          program(3) <= '0';
+        when progC =>
+          program(0) <= '0';
+          program(1) <= '0';
+          program(2) <= '1';
+          program(3) <= '0';
+        when progD =>
+          program(0) <= '0';
+          program(1) <= '0';
+          program(2) <= '0';
+          program(3) <= '1';
         when others => program <= "0000";
        end case;
     end if;
   end process registro;
-      
-  -- FSM ---------------------------------------------------------
+  -- FSM -----------------------
   fsm : process(clock)
   begin
     if clock'event and clock = '1' then
@@ -114,8 +126,8 @@ begin
     end if;
   end process fsm;
 
-  -- DECODER DE ESTADOS -----------------------------------------
-  decoder_states: process(EA, prog)
+  -- DECODER DE ESTADOS --------------
+  decoder_states: process(EA, prog, found)
   begin
     case EA is
       -- IDLE ------------------------
@@ -131,14 +143,12 @@ begin
         end case;
       -- BUSCANDO -------------------
       when buscando => 
-        if prog = "000" then
-          PE <= EA;
-          else if prog = "111" then
-            PE <= zerando;
-            else if found = '1' then
-              PE <= bloqueio;
+          if found = '1' then
+            PE <= bloqueio;
+            else if prog = "111" then
+              PE <= zerando;
+              else PE <= EA;
             end if;
-          end if;
         end if;
       -- PROGS ----------------------
       when progA => 
@@ -155,28 +165,29 @@ begin
         sel(3) <= '1';
       -- ZERANDO --------------------
       when zerando =>
-          found <= '0';
-          match <= "0000";
-          program <= "0000";
           sel <= "0000";
-          data <= x"00";
           PE <= idle;
       -- BLOQUEIO -------------------
       when bloqueio =>
         case prog is
           when "111" => PE <= zerando;
-          when "101" => PE <= buscando;
-          when "110" =>
-            alarme <= '0';
-            PE <= buscando;
+          when "110" => PE <= buscando;
           when others => PE <= EA;
         end case;  
     end case;
   end process decoder_states;
 
-  -- SAIDAS -------------------------------------------------------
+  -- FOUND
+  found   <=  '0' when match = "0000" else 
+              '1';
+  
+
+  -- SAIDAS
   dout <= '0' when EA = bloqueio else din;
   alarme <= '1' when EA = bloqueio else '0';
-  numero <= match when EA = bloqueio else "00";
+  numero <= "00" when match(0) = '1' and EA = bloqueio else
+            "01" when match(1) = '1' and EA = bloqueio else
+            "10" when match(2) = '1' and EA = bloqueio else
+            "11" when match(3) = '1' and EA = bloqueio;
 
 end architecture;
